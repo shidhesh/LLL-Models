@@ -130,12 +130,6 @@ serve as the indispensible 40
 
 For example, the sequence of the four words "serve as the indication" has been seen in the corpus 72 times.
 
-<!---
-Try some examples of your own using [Google Books Ngram Viewer](https://books.google.com/ngrams/) and see the frequency of likely and unlikely N-grams.
-
-![ngramviewer.png](images/ngramviewer.png)
--->
-
 ### Limitations of Statistical Language models
  
 Sometimes we do not have enough data to estimate. Increasing n makes sparsity problems worse. Typically we can’t have n bigger than 5.
@@ -152,8 +146,6 @@ NLM usually (but not always) uses an RNN to learn sequences of words (sentences,
 - Can process variable-length input as the computations for step t use information from many steps back (eg: RNN)
 - No sparsity problem (can feed any n-gram not seen in the training data)
 - Model size doesn’t increase for longer input ($W_h, W_e, $), the same weights are applied on every timestep and need to store only the vocabulary word vectors.
-
-![nlm01.png](images/nlm01.png)
 
 As depicted, At each step, we have a probability distribution of the next word over the vocabulary.
 
@@ -178,8 +170,6 @@ As depicted, At each step, we have a probability distribution of the next word o
 
 LM can be used to generate text conditions on input (speech, image (OCR), text, etc.) across different applications such as: speech recognition, machine translation, summarization, etc.
 
-![clm.png](images/clm.png)
-
 ---
 
 ## Evaluation: How good is our model?
@@ -202,8 +192,6 @@ LM can be used to generate text conditions on input (speech, image (OCR), text, 
 > The standard evaluation metric for Language Models is perplexity
 > Perplexity is the inverse probability of the test set, normalized by the number of words
 
-
-![preplexity02.png](images/preplexity02.png)
 
 > Lower perplexity = Better model
 
@@ -237,8 +225,6 @@ Based on this architecture (the vanilla Transformers!), **encoder or decoder** c
 
 > These models, BERT and GPT for instance, can be considered as the NLP's ImageNET.
 
-![bertvsgpt.png](images/bertvsgpt.png)
-
 As shown, BERT is deeply bidirectional, OpenAI GPT is unidirectional, and ELMo is shallowly bidirectional.
 
 Pre-trained representations can be:
@@ -257,10 +243,6 @@ In this part, we are going to use different large language models
 
 ### 🚀 Hello GPT2 
 
-<a target="_blank" href="https://colab.research.google.com/drive/1eBcoHjJ2S4G_64sBvYS8G8B-1WSRLQAF?usp=sharing">
-<img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
-</a>
-
 [GPT2](https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf) (a successor to GPT) is a pre-trained model on English language using a causal language modeling (**CLM**) objective, trained simply to predict the next word in 40GB of Internet text. It was first released on this [page](https://openai.com/research/better-language-models). GPT2 displays a broad set of capabilities, including the ability to generate conditional synthetic text samples. On language tasks like question answering, reading comprehension, summarization, and translation, GPT2 _begins_ to learn these tasks from the raw text, using no task-specific training data. DistilGPT2 is a distilled version of GPT2, it is intended to be used for similar use cases with the increased functionality of being smaller and easier to run than the base model.
 
 Here we load a pre-trained **GPT2** model, ask the GPT2 model to continue our input text (prompt), and finally, extract embedded features from the DistilGPT2 model. 
@@ -277,10 +259,6 @@ generator("The capital of Japan is Tokyo, The capital of Egypt is", max_length=1
 ```
 
 ### 🚀 Hello BERT 
-
-<a target="_blank" href="https://colab.research.google.com/drive/1n8fd41Bi8yaWp0__eVCe9T4ctWVwSxvC?usp=sharing">
-<img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
-</a>
 
 [BERT](https://arxiv.org/abs/1810.04805) is a transformers model pre-trained on a large corpus of English data in a self-supervised fashion. This means it was pre-trained on the raw texts only, with no humans labeling them in any way with an automatic process to generate inputs and labels from those texts. More precisely, it was pretrained with two objectives:
 1. Masked language modeling (**MLM**): taking a sentence, the model randomly masks 15% of the words in the input then run the entire masked sentence through the model and has to predict the masked words. This is different from traditional recurrent neural networks (RNNs) that usually see the words one after the other, or from autoregressive models like GPT which internally masks the future tokens. It allows the model to learn a bidirectional representation of the sentence.
@@ -302,10 +280,6 @@ bert_model = model_class.from_pretrained(pretrained_weights)
 ```
 
 ### 🚀 GPT4ALL
-
-<a target="_blank" href="https://colab.research.google.com/drive/1AONl_3F8C6fB2NKaQsuAHio0sdjulIRk?usp=sharing">
-<img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
-</a>
 
 [GPT4All](https://docs.gpt4all.io/) is an ecosystem to train and deploy powerful and customized large language models that run locally on consumer grade CPUs.
 
@@ -353,10 +327,6 @@ model = gpt4all.GPT4All("orca-mini-3b.ggmlv3.q4_0.bin")
 
 
 ### 🚀 Falcon
-
-<a target="_blank" href="https://colab.research.google.com/drive/1bkBWa38-kO9T-8mvI1iXAQCIdOO19Uv2?usp=sharing">
-<img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
-</a>
 
 [Falcon](https://huggingface.co/tiiuae) LLM is TII's flagship series of large language models, built from scratch using a custom data pipeline and distributed training. Falcon-7B/40B models are state-of-the-art for their size, outperforming most other models on NLP benchmarks. Open-sourced a number of artefacts:
 - The Falcon-7/40B pretrained and instruct models, under the Apache 2.0 software license. 
@@ -448,11 +418,7 @@ Of course! If you enjoyed "Breaking Bad" and "Band of Brothers," here are some o
 
 ### 🚀 CodeT5+
 
-<a target="_blank" href="https://colab.research.google.com/drive/1Ik8w6BgHazuf45E5GrZd0vyx6SV3EOzG?usp=sharing">
-<img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
-</a>
-
-[CodeT5+](https://github.com/salesforce/CodeT5/tree/main/CodeT5+) is a new family of open code large language models with an encoder-decoder architecture that can flexibly operate in different modes (i.e. encoder-only, decoder-only, and encoder-decoder) to support a wide range of code understanding and generation tasks.
+CodeT5+ is a new family of open code large language models with an encoder-decoder architecture that can flexibly operate in different modes (i.e. encoder-only, decoder-only, and encoder-decoder) to support a wide range of code understanding and generation tasks.
 
 ```
 from transformers import T5ForConditionalGeneration, AutoTokenizer
@@ -491,7 +457,7 @@ def main():
     assert factorial(7) == 5040
 ```
 
-For more models, check [CodeTF](https://github.com/salesforce/CodeTF) from Salesforce, a Python transformer-based library for code large language models (Code LLMs) and code intelligence, providing a seamless interface for training and inferencing on code intelligence tasks like code summarization, translation, code generation, and so on.
+For more models, check CodeTF from Salesforce, a Python transformer-based library for code large language models (Code LLMs) and code intelligence, providing a seamless interface for training and inferencing on code intelligence tasks like code summarization, translation, code generation, and so on.
 
 ---
 
@@ -588,9 +554,7 @@ Sentiment:
 Answer: Negative
 ```
 
-- 👉 **Chain-of-thought ([CoT](https://arxiv.org/abs/2201.11903))** prompting enables complex reasoning capabilities through intermediate reasoning steps. We can combine it with few-shot prompting to get better results on complex tasks that require step by step reasoning before responding.
-
-![cot.png](images/cot.png)
+- 👉 **Chain-of-thought** prompting enables complex reasoning capabilities through intermediate reasoning steps. We can combine it with few-shot prompting to get better results on complex tasks that require step by step reasoning before responding.
 
 
 In addition to **prompt engineering**, we may consider more options: 
@@ -607,12 +571,10 @@ In addition to **prompt engineering**, we may consider more options:
 
 Fine-tuning LLMs on downstream datasets results in huge performance gains when compared to using the pretrained LLMs out-of-the-box (zero-shot inference, for example). However, as models get larger and larger, full fine-tuning becomes infeasible to train on consumer hardware. In addition, storing and deploying fine-tuned models independently for each downstream task becomes very expensive, because fine-tuned models are the same size as the original pretrained model. Parameter-Efficient Fine-tuning ([PEFT](https://huggingface.co/blog/peft)) approaches are meant to address both problems! PEFT approaches enable you to get performance comparable to full fine-tuning while only having a small number of trainable parameters. For example: 
 
-- 👉 [Prompt Tuning](https://arxiv.org/pdf/2104.08691.pdf): a simple yet effective mechanism for learning “soft prompts” to condition frozen language models to perform specific downstream
+- 👉 Prompt Tuning: a simple yet effective mechanism for learning “soft prompts” to condition frozen language models to perform specific downstream
 tasks. Just like engineered text prompts, soft prompts are concatenated to the input text. But rather than selecting from existing vocabulary items, the “tokens” of the soft prompt are learnable vectors. This means a soft prompt can be optimized end-to-end over a training dataset, as [shown](https://ai.googleblog.com/2022/02/guiding-frozen-language-models-with.html) below: 
-![pt.png](images/pt.png)
 
-- 👉 **[LoRA](https://arxiv.org/pdf/2106.09685.pdf)** Low-Rank Adaptation of llms is a method that freezes the pretrained model weights and injects trainable rank decomposition matrices into each layer of the Transformer architecture. Greatly reducing the number of trainable parameters for downstream tasks. The figure below, from this [video](https://youtu.be/PXWYUTMt-AU), explians the main idea: 
-![lora.png](images/lora.png) 
+- 👉 **LoRA** Low-Rank Adaptation of llms is a method that freezes the pretrained model weights and injects trainable rank decomposition matrices into each layer of the Transformer architecture. Greatly reducing the number of trainable parameters for downstream tasks. The figure below, from this [video](https://youtu.be/PXWYUTMt-AU), explians the main idea: 
 
 --- 
 
@@ -620,16 +582,13 @@ tasks. Just like engineered text prompts, soft prompts are concatenated to the i
 
 Large language models are usually general purpose, less effective for domain-specific tasks. However, they can be fine-tuned on some tasks such as sentiment analysis. For more complex taks that require external knowledge, it's possible to build a language model-based system that accesses external knowledge sources to complete the required tasks. This enables more factual accuracy, and helps to mitigate the problem of "hallucination". As shown in the [figuer](https://neo4j.com/developer-blog/fine-tuning-retrieval-augmented-generation/) below:
 
-![rag.png](images/rag.png) 
 
 In this case, instead of using LLMs to access its internal knowledge, we use the LLM as a natural language interface to our external knowledge. The first step is to convert the documents and any user queries into a compatible format to perform relevancy search (convert text into vectors, or embeddings). The original user prompt is then appended with relevant / similar documents within the external knowledge source (as a context). The model then answers the questions based on the provided external context.
 
 --- 
 
 ##  🦜️🔗 LangChain
-Large language models (LLMs) are emerging as a transformative technology. However, using these LLMs in isolation is often insufficient for creating a truly powerful applications. [LangChain](https://github.com/langchain-ai/langchain) aims to assist in the development of such applications. 
-
-![lc02.png](images/lc02.png) 
+Large language models (LLMs) are emerging as a transformative technology. However, using these LLMs in isolation is often insufficient for creating a truly powerful applications. LangChain aims to assist in the development of such applications. 
 
 
 There are six main areas that LangChain is designed to help with. These are, in increasing order of complexity:
